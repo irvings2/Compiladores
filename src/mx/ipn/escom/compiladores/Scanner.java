@@ -482,6 +482,35 @@ public class Scanner {
             i++;
         }
 
+        //Cadenas
+
+        estado = 0;
+        i = 0;
+        c = ' ';
+        temp = "";
+
+        while (source.length() != i) {
+            c = source.charAt(i);
+            switch (estado) {
+                case 0:
+                    if (c == '"') {
+                        estado = 1;
+                    }
+                    break;
+                case 1:
+                    if (c != '"') {
+                        estado = 1;
+                        temp = temp + c;
+                    } else {
+                        estado = 0;
+                        tokens.add(new Token(TipoToken.CADENA, temp, null, linea));
+                        temp = "";
+                    }
+                    break;
+            }
+            i++;
+        }
+
         tokens.add(new Token(TipoToken.EOF, "", null, linea));
 
         return tokens;
