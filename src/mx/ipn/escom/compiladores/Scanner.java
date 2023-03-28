@@ -322,7 +322,7 @@ public class Scanner {
             }
             i++;
         }
-        
+
         //Operadores Aritmeticos
 
         estado = 0;
@@ -386,6 +386,95 @@ public class Scanner {
                     } else {
                         estado = 0;
                         tokens.add(new Token(TipoToken.MENOS, temp, null, linea));
+                        temp = "";
+                    }
+                    break;
+            }
+            i++;
+        }
+
+        //Numeros
+
+        estado = 0;
+        i = 0;
+        c = ' ';
+        temp = "";
+
+        while (source.length() != i) {
+            c = source.charAt(i);
+            if (c == '"') {
+                while (source.length() != i) {
+                    i++;
+                    c = source.charAt(i);
+                    if (c == '"') {
+                        break;
+                    }
+                }
+            }
+            switch (estado) {
+                case 0:
+                    if (Character.isDigit(c)) {
+                        estado = 1;
+                        temp = temp + c;
+                    }
+                    break;
+                case 1:
+                    if (Character.isDigit(c)) {
+                        estado = 1;
+                        temp = temp + c;
+                    } else if (c == '.') {
+                        estado = 2;
+                        temp = temp + c;
+                    } else if (c == 'E') {
+                        estado = 4;
+                        temp = temp + c;
+                    } else {
+                        estado = 0;
+                        tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
+                        temp = "";
+                    }
+                    break;
+                case 2:
+                    if (Character.isDigit(c)) {
+                        estado = 3;
+                        temp = temp + c;
+                    }
+                    break;
+                case 3:
+                    if (Character.isDigit(c)) {
+                        estado = 3;
+                        temp = temp + c;
+                    } else if (c == 'E') {
+                        estado = 4;
+                        temp = temp + c;
+                    } else {
+                        estado = 0;
+                        tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
+                        temp = "";
+                    }
+                    break;
+                case 4:
+                    if (c == '+' || c == '-') {
+                        estado = 5;
+                        temp = temp + c;
+                    } else if (Character.isDigit(c)) {
+                        estado = 6;
+                        temp = temp + c;
+                    }
+                    break;
+                case 5:
+                    if (Character.isDigit(c)) {
+                        estado = 6;
+                        temp = temp + c;
+                    }
+                    break;
+                case 6:
+                    if (Character.isDigit(c)) {
+                        estado = 6;
+                        temp = temp + c;
+                    } else {
+                        estado = 0;
+                        tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
                         temp = "";
                     }
                     break;
