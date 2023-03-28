@@ -9,6 +9,9 @@ public enum TipoToken {
     CLASE, ADEMAS, FALSO, PARA, FUN, SI, NULO, IMPRIMIR, RETORNAR, SUPER,
     ESTE, VERDADERO, VAR, MIENTRAS,
 
+    //OTROS TOKENS
+    IDENTIFICADOR,CADENA,NUMERO,
+
     // Final de cadena
     EOF
 }
