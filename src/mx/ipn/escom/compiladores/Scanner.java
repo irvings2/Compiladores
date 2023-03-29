@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.ldap.SortControl;
+
 public class Scanner {
 
     private final String source;
@@ -399,6 +401,7 @@ public class Scanner {
         i = 0;
         c = ' ';
         temp = "";
+        char caux=' ';
 
         while (source.length() != i) {
             c = source.charAt(i);
@@ -407,6 +410,18 @@ public class Scanner {
                     i++;
                     c = source.charAt(i);
                     if (c == '"') {
+                        break;
+                    }
+                }
+            }
+            if (i!=0) {
+                caux=source.charAt(i-1);   
+            }
+            if (Character.isLetter(caux)) {
+                while (source.length() != i) {
+                    i++;
+                    c = source.charAt(i);
+                    if (!Character.isDigit(c)){
                         break;
                     }
                 }
