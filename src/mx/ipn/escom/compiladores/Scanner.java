@@ -71,52 +71,10 @@ public class Scanner {
                          estado = 1;
                          temp = temp + c;
                      } else {
-                         switch (temp) {
-                             case "if":
-                                 tokens.add(new Token(TipoToken.SI, temp, null, linea));
-                                 break;
-                             case "else":
-                                 tokens.add(new Token(TipoToken.ADEMAS, temp, null, linea));
-                                 break;
-                             case "while":
-                                 tokens.add(new Token(TipoToken.MIENTRAS, temp, null, linea));
-                                 break;
-                             case "for":
-                                 tokens.add(new Token(TipoToken.PARA, temp, null, linea));
-                                 break;
-                             case "return":
-                                 tokens.add(new Token(TipoToken.RETORNAR, temp, null, linea));
-                                 break;
-                             case "class":
-                                 tokens.add(new Token(TipoToken.CLASE, temp, null, linea));
-                                 break;
-                             case "print":
-                                 tokens.add(new Token(TipoToken.IMPRIMIR, temp, null, linea));
-                                 break;
-                             case "this":
-                                 tokens.add(new Token(TipoToken.ESTE, temp, null, linea));
-                                 break;
-                             case "false":
-                                 tokens.add(new Token(TipoToken.FALSO, temp, null, linea));
-                                 break;
-                             case "true":
-                                 tokens.add(new Token(TipoToken.VERDADERO, temp, null, linea));
-                                 break;
-                             case "null":
-                                 tokens.add(new Token(TipoToken.NULO, temp, null, linea));
-                                 break;
-                             case "fun":
-                                 tokens.add(new Token(TipoToken.FUN, temp, null, linea));
-                                 break;
-                             case "super":
-                                 tokens.add(new Token(TipoToken.SUPER, temp, null, linea));
-                                 break;
-                             case "var":
-                                 tokens.add(new Token(TipoToken.VAR, temp, null, linea));
-                                 break;
-                             default:
-                                 tokens.add(new Token(TipoToken.IDENTIFICADOR, temp, null, linea));
-                                 break;
+                         if (palabrasReservadas.containsKey(temp)) {
+                            tokens.add(new Token(palabrasReservadas.get(temp), temp, null, linea));
+                         } else {
+                            tokens.add(new Token(TipoToken.IDENTIFICADOR, temp, null, linea));
                          }
                          estado = 0;
                          temp = "";
