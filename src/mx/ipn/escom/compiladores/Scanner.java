@@ -16,20 +16,20 @@ public class Scanner {
     private static final Map<String, TipoToken> palabrasReservadas;
     static {
         palabrasReservadas = new HashMap<>();
-        palabrasReservadas.put("clase", TipoToken.CLASE);
-        palabrasReservadas.put("ademas", TipoToken.ADEMAS);
-        palabrasReservadas.put("falso", TipoToken.FALSO);
-        palabrasReservadas.put("para", TipoToken.PARA);
+        palabrasReservadas.put("class", TipoToken.CLASE);
+        palabrasReservadas.put("else", TipoToken.ADEMAS);
+        palabrasReservadas.put("false", TipoToken.FALSO);
+        palabrasReservadas.put("for", TipoToken.PARA);
         palabrasReservadas.put("fun", TipoToken.FUN); // definir funciones
-        palabrasReservadas.put("si", TipoToken.SI);
-        palabrasReservadas.put("nulo", TipoToken.NULO);
-        palabrasReservadas.put("imprimir", TipoToken.IMPRIMIR);
-        palabrasReservadas.put("retornar", TipoToken.RETORNAR);
+        palabrasReservadas.put("if", TipoToken.SI);
+        palabrasReservadas.put("null", TipoToken.NULO);
+        palabrasReservadas.put("printf", TipoToken.IMPRIMIR);
+        palabrasReservadas.put("return", TipoToken.RETORNAR);
         palabrasReservadas.put("super", TipoToken.SUPER);
-        palabrasReservadas.put("este", TipoToken.ESTE);
-        palabrasReservadas.put("verdadero", TipoToken.VERDADERO);
+        palabrasReservadas.put("this", TipoToken.ESTE);
+        palabrasReservadas.put("true", TipoToken.VERDADERO);
         palabrasReservadas.put("var", TipoToken.VAR); // definir variables
-        palabrasReservadas.put("mientras", TipoToken.MIENTRAS);
+        palabrasReservadas.put("while", TipoToken.MIENTRAS);
     }
 
     Scanner(String source) {
