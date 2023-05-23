@@ -50,27 +50,22 @@ public class Scanner {
          String temp = "";
          while (source.length() != i) {
              c = source.charAt(i);
-             if (c=='"') {
-                 while (source.length() != i) {
-                     i++;
-                     c = source.charAt(i);
-                     if (c=='"') {
-                         break;
-                     }
-                 }
-             }
              switch (estado) {
                  case 0:
                      if (Character.isLetter(c)) {
                          estado = 1;
                          temp = temp + c;
                      }
-                     break;
+                    if (c == '"') {
+                        estado = 2;
+                    }
+                    break;
                  case 1:
                      if (Character.isLetter(c) || Character.isDigit(c)) {
                          estado = 1;
                          temp = temp + c;
-                     } else {
+                     }
+                     else {
                          if (palabrasReservadas.containsKey(temp)) {
                             tokens.add(new Token(palabrasReservadas.get(temp), temp, null, linea));
                          } else {
@@ -80,6 +75,16 @@ public class Scanner {
                          temp = "";
                      }
                      break;
+                case 2:
+                     if (c != '"') {
+                        estado = 2;
+                        temp = temp + c;
+                    } else {
+                        estado = 0;
+                        tokens.add(new Token(TipoToken.CADENA, temp, null, linea));
+                        temp = "";
+                    }
+                    break;
                  default:
                      break;
              }
@@ -446,35 +451,6 @@ public class Scanner {
                     } else {
                         estado = 0;
                         tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
-                        temp = "";
-                    }
-                    break;
-            }
-            i++;
-        }
-
-        //Cadenas
-
-        estado = 0;
-        i = 0;
-        c = ' ';
-        temp = "";
-
-        while (source.length() != i) {
-            c = source.charAt(i);
-            switch (estado) {
-                case 0:
-                    if (c == '"') {
-                        estado = 1;
-                    }
-                    break;
-                case 1:
-                    if (c != '"') {
-                        estado = 1;
-                        temp = temp + c;
-                    } else {
-                        estado = 0;
-                        tokens.add(new Token(TipoToken.CADENA, temp, null, linea));
                         temp = "";
                     }
                     break;
