@@ -23,7 +23,7 @@ public class Scanner {
         palabrasReservadas.put("fun", TipoToken.FUN); // definir funciones
         palabrasReservadas.put("if", TipoToken.SI);
         palabrasReservadas.put("null", TipoToken.NULO);
-        palabrasReservadas.put("printf", TipoToken.IMPRIMIR);
+        palabrasReservadas.put("print", TipoToken.IMPRIMIR);
         palabrasReservadas.put("return", TipoToken.RETORNAR);
         palabrasReservadas.put("super", TipoToken.SUPER);
         palabrasReservadas.put("this", TipoToken.ESTE);
