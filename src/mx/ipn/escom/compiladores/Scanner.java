@@ -44,7 +44,6 @@ public class Scanner {
          * y al final agregar el token de fin de archivo
          */
 
-         //Identificadores y Palabras Reservadas
          int estado = 0, i = 0;
          char c;
          String temp = "";
@@ -58,6 +57,15 @@ public class Scanner {
                      }
                     if (c == '"') {
                         estado = 2;
+                    }
+                    if (c == '<') {
+                       estado = 3;
+                    } else if (c == '=') {
+                       estado = 4;
+                    } else if (c == '>') {
+                       estado = 5;
+                    } else if (c == '!') {
+                       estado = 6;
                     }
                     break;
                  case 1:
@@ -73,6 +81,7 @@ public class Scanner {
                          }
                          estado = 0;
                          temp = "";
+                         i--;
                      }
                      break;
                 case 2:
@@ -85,44 +94,8 @@ public class Scanner {
                         temp = "";
                     }
                     break;
-                 default:
-                     break;
-             }
-             i++;
-         }
- 
-       //Operadores Relacionales
-
-       estado = 0;
-       i = 0;
-       c = ' ';
-       temp = "";
-
-       while (source.length() != i) {
-           c = source.charAt(i);
-           if (c == '"') {
-               while (source.length() != i) {
-                   i++;
-                   c = source.charAt(i);
-                   if (c == '"') {
-                       break;
-                   }
-               }
-           }
-           switch (estado) {
-               case 0:
-                   if (c == '<') {
-                       estado = 1;
-                   } else if (c == '=') {
-                       estado = 5;
-                   } else if (c == '>') {
-                       estado = 6;
-                   } else if (c == '!') {
-                       estado = 3;
-                   }
-                   break;
-               case 1:
-                   if (c == '=') {
+                case 3:
+                    if (c == '=') {
                        temp = source.substring(i - 1, i + 1);
                        tokens.add(new Token(TipoToken.MENOROIGUALQUE, temp, null, linea));
                        temp = "";
@@ -134,28 +107,20 @@ public class Scanner {
                        estado = 0;
                    }
                    break;
-               case 3:
-                   if (c == '=') {
-                       temp = source.substring(i - 1, i + 1);
-                       tokens.add(new Token(TipoToken.DIFERENTEQUE, temp, null, linea));
-                       temp = "";
-                       estado = 0;
-                   }
-                   break;
-               case 5:
-                   if (c == '=') {
+                case 4:
+                    if (c == '=') {
                        temp = source.substring(i - 1, i + 1);
                        tokens.add(new Token(TipoToken.IGUALA, temp, null, linea));
                        temp = "";
                        estado = 0;
-                   } else {
+                    } else {
                        temp = source.substring(i - 1, i);
                        tokens.add(new Token(TipoToken.ASIGNACION, temp, null, linea));
                        temp = "";
                        estado = 0;
                    }
-                   break;
-               case 6:
+                    break;
+                case 5:
                    if (c == '=') {
                        temp = source.substring(i - 1, i + 1);
                        tokens.add(new Token(TipoToken.MAYOROIGUALQUE, temp, null, linea));
@@ -168,10 +133,20 @@ public class Scanner {
                        estado = 0;
                    }
                    break;
-           }
-           i++;
-       }
-
+                case 6:
+                   if (c == '=') {
+                       temp = source.substring(i - 1, i + 1);
+                       tokens.add(new Token(TipoToken.DIFERENTEQUE, temp, null, linea));
+                       temp = "";
+                       estado = 0;
+                   }
+                   break;
+                 default:
+                     break;
+             }
+             i++;
+         }
+ 
        //Parentesis
 
        estado = 0;
