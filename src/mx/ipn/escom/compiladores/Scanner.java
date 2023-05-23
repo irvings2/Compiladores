@@ -114,14 +114,17 @@ public class Scanner {
                     if (c == '.') {
                         temp = Character.toString(c);
                         tokens.add(new Token(TipoToken.PUNTO, temp, null, linea));
+                        temp = "";
                         estado = 0;
                     } else if (c == ',') {
                         temp = Character.toString(c);
                         tokens.add(new Token(TipoToken.COMA, temp, null, linea));
+                        temp = "";
                         estado = 0;
                     } else if (c == ';') {
                         temp = Character.toString(c);
                         tokens.add(new Token(TipoToken.PUNTOYCOMA, temp, null, linea));
+                        temp = "";
                         estado = 0;
                     }
                     break;
