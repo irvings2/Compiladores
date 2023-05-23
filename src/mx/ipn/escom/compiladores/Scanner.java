@@ -111,6 +111,19 @@ public class Scanner {
                         estado = 9;
                         temp = temp + c;
                     }
+                    if (c == '.') {
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.PUNTO, temp, null, linea));
+                        estado = 0;
+                    } else if (c == ',') {
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.COMA, temp, null, linea));
+                        estado = 0;
+                    } else if (c == ';') {
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.PUNTOYCOMA, temp, null, linea));
+                        estado = 0;
+                    }
                     break;
                 case 1:
                     if (Character.isLetter(c) || Character.isDigit(c)) {
@@ -247,6 +260,7 @@ public class Scanner {
                         tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
                         temp = "";
                         estado = 0;
+                        i--;
                     }
                     break;
                 case 11:
@@ -272,6 +286,7 @@ public class Scanner {
                         tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
                         temp = "";
                         estado = 0;
+                        i--;
                     }
                     break;
                 default:
@@ -279,58 +294,6 @@ public class Scanner {
             }
             i++;
         }
-
-        /*
-         * //Punto, coma, punto y coma
-         * 
-         * estado = 0;
-         * i = 0;
-         * c = ' ';
-         * temp = "";
-         * 
-         * while (source.length() != i) {
-         * c = source.charAt(i);
-         * if (c == '"') {
-         * while (source.length() != i) {
-         * i++;
-         * c = source.charAt(i);
-         * if (c == '"') {
-         * break;
-         * }
-         * }
-         * }
-         * switch (estado) {
-         * case 0:
-         * if (c == '.') {
-         * estado = 1;
-         * temp = Character.toString(c);
-         * } else if (c == ',') {
-         * estado = 2;
-         * temp = Character.toString(c);
-         * } else if (c == ';') {
-         * estado = 0;
-         * temp = Character.toString(c);
-         * tokens.add(new Token(TipoToken.PUNTOYCOMA, temp, null, linea));
-         * }
-         * break;
-         * case 1:
-         * if (c != '.') {
-         * estado = 0;
-         * tokens.add(new Token(TipoToken.PUNTO, temp, null, linea));
-         * temp = "";
-         * }
-         * break;
-         * case 2:
-         * if (c != ',') {
-         * tokens.add(new Token(TipoToken.COMA, temp, null, linea));
-         * temp = "";
-         * estado = 0;
-         * }
-         * break;
-         * }
-         * i++;
-         * }
-         */
 
         tokens.add(new Token(TipoToken.EOF, "", null, linea));
 
