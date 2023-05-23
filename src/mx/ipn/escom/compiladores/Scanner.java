@@ -91,6 +91,23 @@ public class Scanner {
                        temp = "";
                        estado = 0;
                     }
+                    if (c == '+') {
+                        estado = 7;
+                        temp = Character.toString(c);
+                    } else if (c == '-') {
+                        estado = 8;
+                        temp = Character.toString(c);
+                    } else if (c == '*') {
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.MULT, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                    } else if (c == '/') {
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.DIV, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                    }
                     break;
                  case 1:
                      if (Character.isLetter(c) || Character.isDigit(c)) {
@@ -142,6 +159,7 @@ public class Scanner {
                        tokens.add(new Token(TipoToken.ASIGNACION, temp, null, linea));
                        temp = "";
                        estado = 0;
+                       i--;
                    }
                     break;
                 case 5:
@@ -155,6 +173,7 @@ public class Scanner {
                        tokens.add(new Token(TipoToken.MAYORQUE, temp, null, linea));
                        temp = "";
                        estado = 0;
+                       i--;
                    }
                    break;
                 case 6:
@@ -165,81 +184,35 @@ public class Scanner {
                        estado = 0;
                    }
                    break;
-                 default:
-                     break;
-             }
-             i++;
-         }
-
-        //Operadores Aritmeticos
-
-        estado = 0;
-        i = 0;
-        c = ' ';
-        temp = "";
-
-        while (source.length() != i) {
-            c = source.charAt(i);
-            if (c=='"') {
-                while (source.length() != i) {
-                    i++;
-                    c = source.charAt(i);
-                    if (c=='"') {
-                        break;
-                    }
-                }
-            }
-            switch (estado) {
-                case 0:
+                case 7:
                     if (c == '+') {
-                        estado = 1;
-                        temp = Character.toString(c);
-                    } else if (c == '-') {
-                        estado = 2;
-                        temp = Character.toString(c);
-                    } else if (c == '*') {
-                        estado = 3;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.MULT, temp, null, linea));
-                        temp = "";
-                        estado = 0;
-                    } else if (c == '/') {
-                        estado = 4;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.DIV, temp, null, linea));
-                        temp = "";
-                        estado = 0;
-                    }
-                    break;
-                case 1:
-                    if (c == '+') {
-                        estado = 5;
                         temp = temp + c;
                         tokens.add(new Token(TipoToken.INCREMENTO, temp, null, linea));
                         temp = "";
                         estado = 0;
                     } else {
-                        estado = 0;
                         tokens.add(new Token(TipoToken.MAS, temp, null, linea));
                         temp = "";
+                        estado = 0;
                     }
                     break;
-                case 2:
+                case 8:
                     if (c == '-') {
-                        estado = 6;
                         temp = temp + c;
                         tokens.add(new Token(TipoToken.DECREMENTO, temp, null, linea));
                         temp = "";
                         estado = 0;
                     } else {
-                        estado = 0;
                         tokens.add(new Token(TipoToken.MENOS, temp, null, linea));
                         temp = "";
+                        estado = 0;
                     }
                     break;
-            }
-            i++;
-        }
+                 default:
+                     break;
+             }
+             i++;
+         }
 
         //Numeros
 
