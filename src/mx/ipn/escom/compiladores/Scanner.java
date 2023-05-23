@@ -67,6 +67,30 @@ public class Scanner {
                     } else if (c == '!') {
                        estado = 6;
                     }
+                    if (c == '(') {
+                       temp = Character.toString(c);
+                       tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
+                       temp = "";
+                       estado = 0;
+                    }
+                    if (c == ')') {
+                       temp = Character.toString(c);
+                       tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
+                       temp = "";
+                       estado = 0;
+                    }
+                    if (c == '{') {
+                       temp = Character.toString(c);
+                       tokens.add(new Token(TipoToken.LLAVEIZQ, temp, null, linea));
+                       temp = "";
+                       estado = 0;
+                    }
+                    if (c == '}') {
+                       temp = Character.toString(c);
+                       tokens.add(new Token(TipoToken.LLAVEDER, temp, null, linea));
+                       temp = "";
+                       estado = 0;
+                    }
                     break;
                  case 1:
                      if (Character.isLetter(c) || Character.isDigit(c)) {
@@ -146,120 +170,6 @@ public class Scanner {
              }
              i++;
          }
- 
-       //Parentesis
-
-       estado = 0;
-       i = 0;
-       c = ' ';
-       temp = "";
-
-       while (source.length() != i) {
-           c = source.charAt(i);
-           if (c=='"') {
-               while (source.length() != i) {
-                   i++;
-                   c = source.charAt(i);
-                   if (c=='"') {
-                       break;
-                   }
-               }
-           }
-           switch (estado) {
-               case 0:
-                   if (c == '(') {
-                       estado = 1;
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
-                       temp = "";
-                   }
-                   break;
-               case 1:
-                   if (c == '(') {
-                       estado = 1;
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
-                       temp = "";
-                   } else if (c == ')') {
-                       estado = 2;
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.PARENDER, temp, null, linea));
-                       temp = "";
-                   }
-                   break;
-               case 2:
-                   if (c == ')') {
-                       estado = 2;
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.PARENDER, temp, null, linea));
-                       temp = "";
-                   } else if (c == '(') {
-                       estado = 1;
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
-                       temp = "";
-                   }
-                   break;
-           }
-           i++;
-       }
-
-        //Llaves
-
-        estado = 0;
-        i = 0;
-        c = ' ';
-        temp = "";
-
-        while (source.length() != i) {
-            c = source.charAt(i);
-            if (c == '"') {
-                while (source.length() != i) {
-                    i++;
-                    c = source.charAt(i);
-                    if (c == '"') {
-                        break;
-                    }
-                }
-            }
-            switch (estado) {
-                case 0:
-                    if (c == '{') {
-                        estado = 1;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.LLAVEIZQ, temp, null, linea));
-                        temp = "";
-                    }
-                    break;
-                case 1:
-                    if (c == '{') {
-                        estado = 1;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.LLAVEIZQ, temp, null, linea));
-                        temp = "";
-                    } else if (c == '}') {
-                        estado = 2;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.LLAVEDER, temp, null, linea));
-                        temp = "";
-                    }
-                    break;
-                case 2:
-                    if (c == '}') {
-                        estado = 2;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.LLAVEDER, temp, null, linea));
-                        temp = "";
-                    } else if (c == '{') {
-                        estado = 1;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.LLAVEIZQ, temp, null, linea));
-                        temp = "";
-                    }
-                    break;
-            }
-            i++;
-        }
 
         //Operadores Aritmeticos
 
