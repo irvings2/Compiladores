@@ -44,52 +44,52 @@ public class Scanner {
          * y al final agregar el token de fin de archivo
          */
 
-         int estado = 0, i = 0;
-         char c;
-         String temp = "";
-         while (source.length() != i) {
-             c = source.charAt(i);
-             switch (estado) {
-                 case 0:
-                     if (Character.isLetter(c)) {
-                         estado = 1;
-                         temp = temp + c;
-                     }
+        int estado = 0, i = 0;
+        char c;
+        String temp = "";
+        while (source.length() != i) {
+            c = source.charAt(i);
+            switch (estado) {
+                case 0:
+                    if (Character.isLetter(c)) {
+                        estado = 1;
+                        temp = temp + c;
+                    }
                     if (c == '"') {
                         estado = 2;
                     }
                     if (c == '<') {
-                       estado = 3;
+                        estado = 3;
                     } else if (c == '=') {
-                       estado = 4;
+                        estado = 4;
                     } else if (c == '>') {
-                       estado = 5;
+                        estado = 5;
                     } else if (c == '!') {
-                       estado = 6;
+                        estado = 6;
                     }
                     if (c == '(') {
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
-                       temp = "";
-                       estado = 0;
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
+                        temp = "";
+                        estado = 0;
                     }
                     if (c == ')') {
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
-                       temp = "";
-                       estado = 0;
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
+                        temp = "";
+                        estado = 0;
                     }
                     if (c == '{') {
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.LLAVEIZQ, temp, null, linea));
-                       temp = "";
-                       estado = 0;
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.LLAVEIZQ, temp, null, linea));
+                        temp = "";
+                        estado = 0;
                     }
                     if (c == '}') {
-                       temp = Character.toString(c);
-                       tokens.add(new Token(TipoToken.LLAVEDER, temp, null, linea));
-                       temp = "";
-                       estado = 0;
+                        temp = Character.toString(c);
+                        tokens.add(new Token(TipoToken.LLAVEDER, temp, null, linea));
+                        temp = "";
+                        estado = 0;
                     }
                     if (c == '+') {
                         estado = 7;
@@ -107,26 +107,28 @@ public class Scanner {
                         tokens.add(new Token(TipoToken.DIV, temp, null, linea));
                         temp = "";
                         estado = 0;
+                    } else if (Character.isDigit(c)) {
+                        estado = 9;
+                        temp = temp + c;
                     }
                     break;
-                 case 1:
-                     if (Character.isLetter(c) || Character.isDigit(c)) {
-                         estado = 1;
-                         temp = temp + c;
-                     }
-                     else {
-                         if (palabrasReservadas.containsKey(temp)) {
+                case 1:
+                    if (Character.isLetter(c) || Character.isDigit(c)) {
+                        estado = 1;
+                        temp = temp + c;
+                    } else {
+                        if (palabrasReservadas.containsKey(temp)) {
                             tokens.add(new Token(palabrasReservadas.get(temp), temp, null, linea));
-                         } else {
+                        } else {
                             tokens.add(new Token(TipoToken.IDENTIFICADOR, temp, null, linea));
-                         }
-                         estado = 0;
-                         temp = "";
-                         i--;
-                     }
-                     break;
+                        }
+                        estado = 0;
+                        temp = "";
+                        i--;
+                    }
+                    break;
                 case 2:
-                     if (c != '"') {
+                    if (c != '"') {
                         estado = 2;
                         temp = temp + c;
                     } else {
@@ -137,53 +139,54 @@ public class Scanner {
                     break;
                 case 3:
                     if (c == '=') {
-                       temp = source.substring(i - 1, i + 1);
-                       tokens.add(new Token(TipoToken.MENOROIGUALQUE, temp, null, linea));
-                       temp = "";
-                       estado = 0;
-                   } else {
-                       temp = source.substring(i - 1, i);
-                       tokens.add(new Token(TipoToken.MENORQUE, temp, null, linea));
-                       temp = "";
-                       estado = 0;
-                   }
-                   break;
+                        temp = source.substring(i - 1, i + 1);
+                        tokens.add(new Token(TipoToken.MENOROIGUALQUE, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                    } else {
+                        temp = source.substring(i - 1, i);
+                        tokens.add(new Token(TipoToken.MENORQUE, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                        i--;
+                    }
+                    break;
                 case 4:
                     if (c == '=') {
-                       temp = source.substring(i - 1, i + 1);
-                       tokens.add(new Token(TipoToken.IGUALA, temp, null, linea));
-                       temp = "";
-                       estado = 0;
+                        temp = source.substring(i - 1, i + 1);
+                        tokens.add(new Token(TipoToken.IGUALA, temp, null, linea));
+                        temp = "";
+                        estado = 0;
                     } else {
-                       temp = source.substring(i - 1, i);
-                       tokens.add(new Token(TipoToken.ASIGNACION, temp, null, linea));
-                       temp = "";
-                       estado = 0;
-                       i--;
-                   }
+                        temp = source.substring(i - 1, i);
+                        tokens.add(new Token(TipoToken.ASIGNACION, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                        i--;
+                    }
                     break;
                 case 5:
-                   if (c == '=') {
-                       temp = source.substring(i - 1, i + 1);
-                       tokens.add(new Token(TipoToken.MAYOROIGUALQUE, temp, null, linea));
-                       temp = "";
-                       estado = 0;
-                   } else {
-                       temp = source.substring(i - 1, i);
-                       tokens.add(new Token(TipoToken.MAYORQUE, temp, null, linea));
-                       temp = "";
-                       estado = 0;
-                       i--;
-                   }
-                   break;
+                    if (c == '=') {
+                        temp = source.substring(i - 1, i + 1);
+                        tokens.add(new Token(TipoToken.MAYOROIGUALQUE, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                    } else {
+                        temp = source.substring(i - 1, i);
+                        tokens.add(new Token(TipoToken.MAYORQUE, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                        i--;
+                    }
+                    break;
                 case 6:
-                   if (c == '=') {
-                       temp = source.substring(i - 1, i + 1);
-                       tokens.add(new Token(TipoToken.DIFERENTEQUE, temp, null, linea));
-                       temp = "";
-                       estado = 0;
-                   }
-                   break;
+                    if (c == '=') {
+                        temp = source.substring(i - 1, i + 1);
+                        tokens.add(new Token(TipoToken.DIFERENTEQUE, temp, null, linea));
+                        temp = "";
+                        estado = 0;
+                    }
+                    break;
                 case 7:
                     if (c == '+') {
                         temp = temp + c;
@@ -194,6 +197,7 @@ public class Scanner {
                         tokens.add(new Token(TipoToken.MAS, temp, null, linea));
                         temp = "";
                         estado = 0;
+                        i--;
                     }
                     break;
                 case 8:
@@ -206,165 +210,127 @@ public class Scanner {
                         tokens.add(new Token(TipoToken.MENOS, temp, null, linea));
                         temp = "";
                         estado = 0;
+                        i--;
                     }
                     break;
-                 default:
-                     break;
-             }
-             i++;
-         }
-
-        /*Numeros
-
-        estado = 0;
-        i = 0;
-        c = ' ';
-        temp = "";
-        char caux=' ';
-
-        while (source.length() != i) {
-            c = source.charAt(i);
-            if (c == '"') {
-                while (source.length() != i) {
-                    i++;
-                    c = source.charAt(i);
-                    if (c == '"') {
-                        break;
-                    }
-                }
-            }
-            if (i!=0) {
-                caux=source.charAt(i-1);   
-            }
-            if (Character.isLetter(caux)) {
-                while (source.length() != i) {
-                    c = source.charAt(i);
-                    if (!Character.isDigit(c)){
-                        break;
-                    }
-                    i++;
-                }
-            }
-            switch (estado) {
-                case 0:
+                case 9:
                     if (Character.isDigit(c)) {
-                        estado = 1;
-                        temp = temp + c;
-                    }
-                    break;
-                case 1:
-                    if (Character.isDigit(c)) {
-                        estado = 1;
+                        estado = 9;
                         temp = temp + c;
                     } else if (c == '.') {
-                        estado = 2;
+                        estado = 10;
                         temp = temp + c;
                     } else if (c == 'E') {
-                        estado = 4;
+                        estado = 11;
                         temp = temp + c;
                     } else {
-                        estado = 0;
                         tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
                         temp = "";
+                        estado = 0;
+                        i--;
                     }
                     break;
-                case 2:
+                case 10:
                     if (Character.isDigit(c)) {
-                        estado = 3;
+                        estado = 12;
                         temp = temp + c;
                     }
                     break;
-                case 3:
+                case 12:
                     if (Character.isDigit(c)) {
-                        estado = 3;
+                        estado = 12;
                         temp = temp + c;
                     } else if (c == 'E') {
-                        estado = 4;
+                        estado = 11;
                         temp = temp + c;
                     } else {
-                        estado = 0;
                         tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
                         temp = "";
+                        estado = 0;
                     }
                     break;
-                case 4:
+                case 11:
                     if (c == '+' || c == '-') {
-                        estado = 5;
+                        estado = 13;
                         temp = temp + c;
                     } else if (Character.isDigit(c)) {
-                        estado = 6;
+                        estado = 14;
                         temp = temp + c;
                     }
                     break;
-                case 5:
+                case 13:
                     if (Character.isDigit(c)) {
-                        estado = 6;
+                        estado = 14;
                         temp = temp + c;
                     }
                     break;
-                case 6:
+                case 14:
                     if (Character.isDigit(c)) {
-                        estado = 6;
+                        estado = 14;
                         temp = temp + c;
                     } else {
-                        estado = 0;
                         tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
                         temp = "";
+                        estado = 0;
                     }
+                    break;
+                default:
                     break;
             }
             i++;
         }
 
-        //Punto, coma, punto y coma
-
-        estado = 0;
-        i = 0;
-        c = ' ';
-        temp = "";
-
-        while (source.length() != i) {
-            c = source.charAt(i);
-            if (c == '"') {
-                while (source.length() != i) {
-                    i++;
-                    c = source.charAt(i);
-                    if (c == '"') {
-                        break;
-                    }
-                }
-            }
-            switch (estado) {
-                case 0:
-                    if (c == '.') {
-                        estado = 1;
-                        temp = Character.toString(c);
-                    } else if (c == ',') {
-                        estado = 2;
-                        temp = Character.toString(c);
-                    } else if (c == ';') {
-                        estado = 0;
-                        temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.PUNTOYCOMA, temp, null, linea));
-                    }
-                    break;
-                case 1:
-                    if (c != '.') {
-                        estado = 0;
-                        tokens.add(new Token(TipoToken.PUNTO, temp, null, linea));
-                        temp = "";
-                    }
-                    break;
-                case 2:
-                    if (c != ',') {
-                        tokens.add(new Token(TipoToken.COMA, temp, null, linea));
-                        temp = "";
-                        estado = 0;
-                    }
-                    break;
-            }
-            i++;
-        }*/
+        /*
+         * //Punto, coma, punto y coma
+         * 
+         * estado = 0;
+         * i = 0;
+         * c = ' ';
+         * temp = "";
+         * 
+         * while (source.length() != i) {
+         * c = source.charAt(i);
+         * if (c == '"') {
+         * while (source.length() != i) {
+         * i++;
+         * c = source.charAt(i);
+         * if (c == '"') {
+         * break;
+         * }
+         * }
+         * }
+         * switch (estado) {
+         * case 0:
+         * if (c == '.') {
+         * estado = 1;
+         * temp = Character.toString(c);
+         * } else if (c == ',') {
+         * estado = 2;
+         * temp = Character.toString(c);
+         * } else if (c == ';') {
+         * estado = 0;
+         * temp = Character.toString(c);
+         * tokens.add(new Token(TipoToken.PUNTOYCOMA, temp, null, linea));
+         * }
+         * break;
+         * case 1:
+         * if (c != '.') {
+         * estado = 0;
+         * tokens.add(new Token(TipoToken.PUNTO, temp, null, linea));
+         * temp = "";
+         * }
+         * break;
+         * case 2:
+         * if (c != ',') {
+         * tokens.add(new Token(TipoToken.COMA, temp, null, linea));
+         * temp = "";
+         * estado = 0;
+         * }
+         * break;
+         * }
+         * i++;
+         * }
+         */
 
         tokens.add(new Token(TipoToken.EOF, "", null, linea));
 
