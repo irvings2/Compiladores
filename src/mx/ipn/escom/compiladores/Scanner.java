@@ -214,7 +214,7 @@ public class Scanner {
              i++;
          }
 
-        //Numeros
+        /*Numeros
 
         estado = 0;
         i = 0;
@@ -364,7 +364,7 @@ public class Scanner {
                     break;
             }
             i++;
-        }
+        }*/
 
         tokens.add(new Token(TipoToken.EOF, "", null, linea));
 
