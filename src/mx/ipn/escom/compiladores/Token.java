@@ -14,6 +14,19 @@ public class Token {
         this.linea = linea;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof Token)) {
+            return false;
+        }
+
+        if(this.tipo == ((Token)o).tipo){
+            return true;
+        }
+
+        return false;
+    }
+
     public String toString(){
         return tipo + " " + lexema + " " + literal;
     }
