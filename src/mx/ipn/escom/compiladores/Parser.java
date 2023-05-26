@@ -4,7 +4,13 @@ import java.util.List;
 
 public class Parser {
     private final List<Token> tokens;
-    private final Token super1 = new Token(TipoToken.SUPER*, "", null, 0);
+    private final Token parender = new Token(TipoToken.PARENDER, "", null, 0);
+    private final Token parenizq = new Token(TipoToken.PARENIZQ, "", null, 0);
+    private final Token llaveder = new Token(TipoToken.LLAVEDER, "", null, 0);
+    private final Token llaveizq = new Token(TipoToken.LLAVEIZQ, "", null, 0);
+    private final Token puntoycoma = new Token(TipoToken.PUNTOYCOMA, "", null, 0);
+    private final Token coma = new Token(TipoToken.COMA, "", null, 0);
+    private final Token super1 = new Token(TipoToken.SUPER, "", null, 0);
     private final Token cadena = new Token(TipoToken.CADENA, "", null, 0);
     private final Token numero = new Token(TipoToken.NUMERO, "", null, 0);
     private final Token this1 = new Token(TipoToken.ESTE, "", null, 0);
