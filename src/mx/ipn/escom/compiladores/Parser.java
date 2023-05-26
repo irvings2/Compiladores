@@ -75,4 +75,34 @@ public class Parser {
 
         }
     }
+
+    void program()
+    {
+
+    }
+
+    void declaration()
+    {
+
+    }
+
+    void class_decl()
+    {
+
+    }
+
+    void class_inher()
+    {
+
+    }
+
+    void fun_decl()
+    {
+
+    }
+
+    void var_decl()
+    {
+        
+    }
 }
