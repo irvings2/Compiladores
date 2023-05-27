@@ -62,20 +62,6 @@ public class Parser {
         }
     }
 
-    void coincidir(Token t){
-        if(hayErrores) return;
-
-        if(preanalisis.tipo == t.tipo){
-            i++;
-            preanalisis = tokens.get(i);
-        }
-        else{
-            hayErrores = true;
-            System.out.println("Error");
-
-        }
-    }
-
     void program()
     {
 
@@ -104,5 +90,229 @@ public class Parser {
     void var_decl()
     {
         
+    }
+
+    void var_init()
+    {
+
+    }
+
+    void statement()
+    {
+
+    }
+
+    void expr_stmt()
+    {
+
+    }
+
+    void for_stmt()
+    {
+
+    }
+
+    void for_stmt_1()
+    {
+
+    }
+
+    void for_stmt_2()
+    {
+
+    }
+
+    void for_stmt_3()
+    {
+
+    }
+
+    void if_stmt()
+    {
+
+    }
+
+    void else_statement()
+    {
+
+    }
+
+    void print_stmt()
+    {
+
+    }
+
+    void return_stmt()
+    {
+
+    }
+
+    void return_exp_opc()
+    {
+
+    }
+
+    void while_stmt()
+    {
+
+    }
+
+    void block()
+    {
+
+    }
+
+    void block_del()
+    {
+
+    }
+
+    void expression()
+    {
+
+    }
+
+    void assignment()
+    {
+
+    }
+
+    void logic_or()
+    {
+
+    }
+
+    void logic_or_2()
+    {
+
+    }
+
+    void logic_and()
+    {
+
+    }
+
+    void logic_and_2()
+    {
+
+    }
+
+    void equality()
+    {
+
+    }
+
+    void equality_2()
+    {
+
+    }
+
+    void comparison()
+    {
+
+    }
+
+    void comparison_2()
+    {
+
+    }
+
+    void term()
+    {
+
+    }
+
+    void term_2()
+    {
+
+    }
+
+    void factor()
+    {
+
+    }
+
+    void factor_2()
+    {
+
+    }
+
+    void unary()
+    {
+
+    }
+
+    void call()
+    {
+
+    }
+
+    void call_2()
+    {
+
+    }
+
+    void call_opc()
+    {
+
+    }
+
+    void primary()
+    {
+
+    }
+
+    void function()
+    {
+
+    }
+
+    void functions()
+    {
+
+    }
+
+    void parameters_opc()
+    {
+
+    }
+
+    void parameters()
+    {
+
+    }
+
+    void parameters_2()
+    {
+
+    }
+
+    void arguments_opc()
+    {
+
+    }
+
+    void arguments()
+    {
+
+    }
+
+    void arguments_2()
+    {
+
+    }
+
+    void coincidir(Token t){
+        if(hayErrores) return;
+
+        if(preanalisis.tipo == t.tipo){
+            i++;
+            preanalisis = tokens.get(i);
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+
+        }
     }
 }
