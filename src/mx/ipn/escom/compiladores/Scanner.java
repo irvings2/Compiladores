@@ -75,7 +75,7 @@ public class Scanner {
                     }
                     if (c == ')') {
                         temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.PARENIZQ, temp, null, linea));
+                        tokens.add(new Token(TipoToken.PARENDER, temp, null, linea));
                         temp = "";
                         estado = 0;
                     }

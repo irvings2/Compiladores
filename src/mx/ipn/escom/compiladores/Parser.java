@@ -53,6 +53,7 @@ public class Parser {
     public void parse(){
         i = 0;
         preanalisis = tokens.get(i);
+        program();
         
         if(!hayErrores && !preanalisis.equals(finCadena)){
             System.out.println("Error");
@@ -64,32 +65,74 @@ public class Parser {
 
     void program()
     {
-
+        declaration();
     }
 
     void declaration()
     {
-
+        if (preanalisis.equals(class1)) {
+            class_decl();
+            declaration();   
+        }
+        if (preanalisis.equals(fun1)) {
+            fun_decl();
+            declaration();   
+        }
+        if (preanalisis.equals(var1)) {
+            var_decl();
+            declaration();   
+        }
+        if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1) || preanalisis.equals(return1) || preanalisis.equals(while1)) {
+            statement();
+            declaration();   
+        }
     }
 
     void class_decl()
     {
-
+        if (preanalisis.equals(class1)) {
+            coincidir(class1);
+            coincidir(identificador);
+            class_inher();
+            coincidir(llaveizq);
+            functions();
+            coincidir(llaveder);
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void class_inher()
     {
-
+        if (preanalisis.equals(menorque)) {
+            coincidir(menorque);
+            coincidir(identificador);
+        }
     }
 
     void fun_decl()
     {
-
+        if (preanalisis.equals(fun1)) {
+            coincidir(fun1);
+            function();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void var_decl()
     {
-        
+        if (hayErrores) {
+            
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void var_init()
@@ -99,7 +142,19 @@ public class Parser {
 
     void statement()
     {
-
+        if (preanalisis.equals(if1)) {
+            if_stmt();
+        }
+        if (preanalisis.equals(print1)) {
+            print_stmt();
+        }
+        if (preanalisis.equals(llaveizq)) {
+            block();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void expr_stmt()
@@ -129,17 +184,33 @@ public class Parser {
 
     void if_stmt()
     {
-
+        if (preanalisis.equals(if1)) {
+            coincidir(if1);
+            coincidir(parenizq);
+            expression();
+            coincidir(parender);
+            statement();
+            else_statement();   
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void else_statement()
     {
-
+        if (preanalisis.equals(else1)) {
+            coincidir(else1);
+            statement();
+        }
     }
 
     void print_stmt()
     {
-
+        coincidir(print1);
+        expression();
+        coincidir(puntoycoma);
     }
 
     void return_stmt()
@@ -159,22 +230,34 @@ public class Parser {
 
     void block()
     {
-
+        coincidir(llaveizq);
+        block_del();
+        coincidir(llaveder);
     }
 
     void block_del()
     {
-
+        if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1) || preanalisis.equals(return1) || preanalisis.equals(while1) || preanalisis.equals(class1)
+        || preanalisis.equals(fun1) || preanalisis.equals(var1)) {
+            declaration();
+            block_del();
+        }
     }
 
     void expression()
     {
-
+        assignment();
     }
 
     void assignment()
     {
-
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
+        || preanalisis.equals(identificador) || preanalisis.equals(parender) || preanalisis.equals(super1)) {
+            call_opc();
+            coincidir(identificador);
+            coincidir(asignacion);
+            assignment();   
+        }
     }
 
     void logic_or()
@@ -244,17 +327,34 @@ public class Parser {
 
     void call()
     {
-
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
+        || preanalisis.equals(identificador) || preanalisis.equals(parender) || preanalisis.equals(super1)) {
+            call_2();   
+        }
     }
 
     void call_2()
     {
-
+        if (preanalisis.equals(parenizq)) {
+            coincidir(parenizq);
+            arguments_opc();
+            coincidir(parender);
+            call_2();
+        }
+        else if (preanalisis.equals(punto)) {
+            coincidir(punto);
+            coincidir(identificador);
+            call_2();
+        }
     }
 
     void call_opc()
     {
-
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
+        || preanalisis.equals(identificador) || preanalisis.equals(parender) || preanalisis.equals(super1)) {
+            call();
+            coincidir(punto);   
+        }
     }
 
     void primary()
@@ -264,27 +364,53 @@ public class Parser {
 
     void function()
     {
-
+        if (preanalisis.equals(identificador)) {
+            coincidir(identificador);
+            coincidir(parenizq);
+            parameters_opc();
+            coincidir(parender);
+            block();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void functions()
     {
-
+        if (preanalisis.equals(identificador)) {
+            function();
+            functions();
+        }
     }
 
     void parameters_opc()
     {
-
+        if (preanalisis.equals(identificador)) {
+            parameters();
+        }
     }
 
     void parameters()
     {
-
+        if (preanalisis.equals(identificador)) {
+            coincidir(identificador);
+            parameters_2();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void parameters_2()
     {
-
+        if (preanalisis.equals(coma)) {
+            coincidir(coma);
+            coincidir(identificador);
+            parameters_2();
+        }
     }
 
     void arguments_opc()
