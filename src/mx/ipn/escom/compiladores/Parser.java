@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Parser {
     private final List<Token> tokens;
+    private final Token negacion = new Token(TipoToken.NEGACION, "", null, 0);
     private final Token parender = new Token(TipoToken.PARENDER, "", null, 0);
     private final Token parenizq = new Token(TipoToken.PARENIZQ, "", null, 0);
     private final Token llaveder = new Token(TipoToken.LLAVEDER, "", null, 0);
@@ -252,27 +253,52 @@ public class Parser {
     void assignment()
     {
         if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
-        || preanalisis.equals(identificador) || preanalisis.equals(parender) || preanalisis.equals(super1)) {
+        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             call_opc();
             coincidir(identificador);
             coincidir(asignacion);
             assignment();   
         }
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+            logic_or();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error assig");
+        }
     }
 
     void logic_or()
     {
-
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+            logic_and();
+            logic_or_2();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void logic_or_2()
     {
-
+        if (preanalisis.equals(or1)) {
+            coincidir(or1);
+            logic_and();
+            logic_or_2();
+        }
     }
 
     void logic_and()
     {
-
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+            equality();
+            logic_and_2();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void logic_and_2()
@@ -282,7 +308,14 @@ public class Parser {
 
     void equality()
     {
-
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+            comparison();
+            equality_2();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void equality_2()
@@ -292,7 +325,14 @@ public class Parser {
 
     void comparison()
     {
-
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+            term();
+            comparison_2();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void comparison_2()
@@ -302,7 +342,14 @@ public class Parser {
 
     void term()
     {
-
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+            factor();
+            term_2();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void term_2()
@@ -312,7 +359,14 @@ public class Parser {
 
     void factor()
     {
-
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+            unary();
+            factor_2();
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void factor_2()
@@ -322,14 +376,34 @@ public class Parser {
 
     void unary()
     {
-
+        if (preanalisis.equals(negacion)) {
+            coincidir(negacion);
+            unary();
+        }
+        if (preanalisis.equals(menos)) {
+            coincidir(menos);
+            unary();
+        }
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
+        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            call();   
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error");
+        }
     }
 
     void call()
     {
         if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
-        || preanalisis.equals(identificador) || preanalisis.equals(parender) || preanalisis.equals(super1)) {
+        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            primary();
             call_2();   
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error call");
         }
     }
 
@@ -351,15 +425,57 @@ public class Parser {
     void call_opc()
     {
         if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
-        || preanalisis.equals(identificador) || preanalisis.equals(parender) || preanalisis.equals(super1)) {
-            call();
-            coincidir(punto);   
+        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            preanalisis = tokens.get(i++);
+            if (preanalisis.equals(punto)) {
+                preanalisis = tokens.get(i--);
+                call();
+                coincidir(punto);   
+            }
+            else{
+                preanalisis = tokens.get(i--);
+                return;
+            }
         }
     }
 
     void primary()
     {
-
+        if (preanalisis.equals(verdadero)) {
+            coincidir(verdadero);   
+        }
+        if (preanalisis.equals(falso)) {
+            coincidir(falso);
+        }
+        if (preanalisis.equals(nulo)) {
+            coincidir(nulo);
+        }
+        if (preanalisis.equals(this1)) {
+            coincidir(this1);
+        }
+        if (preanalisis.equals(numero)) {
+            coincidir(numero);
+        }
+        if (preanalisis.equals(cadena)) {
+            coincidir(cadena);
+        }
+        if (preanalisis.equals(identificador)) {
+            coincidir(identificador);
+        }
+        if (preanalisis.equals(parenizq)) {
+            coincidir(parenizq);
+            expression();
+            coincidir(parender);
+        }
+        if (preanalisis.equals(super1)) {
+            coincidir(super1);
+            coincidir(punto);
+            coincidir(identificador);
+        }
+        else{
+            hayErrores = true;
+            System.out.println("Error prim");
+        }
     }
 
     void function()
