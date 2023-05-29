@@ -47,50 +47,47 @@ public class Parser {
     private boolean hayErrores = false;
     private Token preanalisis;
 
-    public Parser(List<Token> tokens){
+    public Parser(List<Token> tokens) {
         this.tokens = tokens;
     }
 
-    public void parse(){
+    public void parse() {
         i = 0;
         preanalisis = tokens.get(i);
         program();
-        
-        if(!hayErrores && !preanalisis.equals(finCadena)){
+
+        if (!hayErrores && !preanalisis.equals(finCadena)) {
             System.out.println("Error");
-        }
-        else if(!hayErrores && preanalisis.equals(finCadena)){
+        } else if (!hayErrores && preanalisis.equals(finCadena)) {
             System.out.println("Cadena válida");
         }
     }
 
-    void program()
-    {
+    void program() {
         declaration();
     }
 
-    void declaration()
-    {
+    void declaration() {
         if (preanalisis.equals(class1)) {
             class_decl();
-            declaration();   
+            declaration();
         }
         if (preanalisis.equals(fun1)) {
             fun_decl();
-            declaration();   
+            declaration();
         }
         if (preanalisis.equals(var1)) {
             var_decl();
-            declaration();   
+            declaration();
         }
-        if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1) || preanalisis.equals(return1) || preanalisis.equals(while1)) {
+        if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1)
+                || preanalisis.equals(return1) || preanalisis.equals(while1)) {
             statement();
-            declaration();   
+            declaration();
         }
     }
 
-    void class_decl()
-    {
+    void class_decl() {
         if (preanalisis.equals(class1)) {
             coincidir(class1);
             coincidir(identificador);
@@ -98,51 +95,43 @@ public class Parser {
             coincidir(llaveizq);
             functions();
             coincidir(llaveder);
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void class_inher()
-    {
+    void class_inher() {
         if (preanalisis.equals(menorque)) {
             coincidir(menorque);
             coincidir(identificador);
         }
     }
 
-    void fun_decl()
-    {
+    void fun_decl() {
         if (preanalisis.equals(fun1)) {
             coincidir(fun1);
             function();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void var_decl()
-    {
+    void var_decl() {
         if (hayErrores) {
-            
-        }
-        else{
+
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void var_init()
-    {
+    void var_init() {
 
     }
 
-    void statement()
-    {
+    void statement() {
         if (preanalisis.equals(if1)) {
             if_stmt();
         }
@@ -151,137 +140,138 @@ public class Parser {
         }
         if (preanalisis.equals(llaveizq)) {
             block();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void expr_stmt()
-    {
+    void expr_stmt() {
 
     }
 
-    void for_stmt()
-    {
+    void for_stmt() {
 
     }
 
-    void for_stmt_1()
-    {
+    void for_stmt_1() {
 
     }
 
-    void for_stmt_2()
-    {
+    void for_stmt_2() {
 
     }
 
-    void for_stmt_3()
-    {
+    void for_stmt_3() {
 
     }
 
-    void if_stmt()
-    {
+    void if_stmt() {
         if (preanalisis.equals(if1)) {
             coincidir(if1);
             coincidir(parenizq);
             expression();
             coincidir(parender);
             statement();
-            else_statement();   
-        }
-        else{
+            else_statement();
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void else_statement()
-    {
+    void else_statement() {
         if (preanalisis.equals(else1)) {
             coincidir(else1);
             statement();
         }
     }
 
-    void print_stmt()
-    {
-        coincidir(print1);
-        expression();
-        coincidir(puntoycoma);
-    }
-
-    void return_stmt()
-    {
-
-    }
-
-    void return_exp_opc()
-    {
-
-    }
-
-    void while_stmt()
-    {
-
-    }
-
-    void block()
-    {
-        coincidir(llaveizq);
-        block_del();
-        coincidir(llaveder);
-    }
-
-    void block_del()
-    {
-        if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1) || preanalisis.equals(return1) || preanalisis.equals(while1) || preanalisis.equals(class1)
-        || preanalisis.equals(fun1) || preanalisis.equals(var1)) {
-            declaration();
-            block_del();
-        }
-    }
-
-    void expression()
-    {
-        assignment();
-    }
-
-    void assignment()
-    {
-        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
-        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
-            call_opc();
-            coincidir(identificador);
-            coincidir(asignacion);
-            assignment();   
-        }
-        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
-            logic_or();
-        }
-        else{
-            hayErrores = true;
-            System.out.println("Error assig");
-        }
-    }
-
-    void logic_or()
-    {
-        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
-            logic_and();
-            logic_or_2();
-        }
-        else{
+    void print_stmt() {
+        if (preanalisis.equals(print1)) {
+            coincidir(print1);
+            expression();
+            coincidir(puntoycoma);
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void logic_or_2()
-    {
+    void return_stmt() {
+
+    }
+
+    void return_exp_opc() {
+
+    }
+
+    void while_stmt() {
+
+    }
+
+    void block() {
+        coincidir(llaveizq);
+        block_del();
+        coincidir(llaveder);
+    }
+
+    void block_del() {
+        if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1)
+                || preanalisis.equals(return1) || preanalisis.equals(while1) || preanalisis.equals(class1)
+                || preanalisis.equals(fun1) || preanalisis.equals(var1)) {
+            declaration();
+            block_del();
+        }
+    }
+
+    void expression() {
+        assignment();
+    }
+
+    void assignment() {
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo)
+                || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            preanalisis = tokens.get(i++);
+            if (preanalisis.equals(punto)) {
+                i--;
+                preanalisis = tokens.get(i);
+                call_opc();
+            }
+            i--;
+            preanalisis = tokens.get(i);
+            coincidir(identificador);
+            coincidir(asignacion);
+            assignment();
+        }
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            logic_or();
+        } else {
+            hayErrores = true;
+            System.out.println("Error assig");
+        }
+    }
+
+    void logic_or() {
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            logic_and();
+            logic_or_2();
+        } else {
+            hayErrores = true;
+            System.out.println("Error");
+        }
+    }
+
+    void logic_or_2() {
         if (preanalisis.equals(or1)) {
             coincidir(or1);
             logic_and();
@@ -289,93 +279,97 @@ public class Parser {
         }
     }
 
-    void logic_and()
-    {
-        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+    void logic_and() {
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             equality();
             logic_and_2();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void logic_and_2()
-    {
+    void logic_and_2() {
 
     }
 
-    void equality()
-    {
-        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+    void equality() {
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             comparison();
             equality_2();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void equality_2()
-    {
+    void equality_2() {
 
     }
 
-    void comparison()
-    {
-        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+    void comparison() {
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             term();
             comparison_2();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void comparison_2()
-    {
+    void comparison_2() {
 
     }
 
-    void term()
-    {
-        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+    void term() {
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             factor();
             term_2();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void term_2()
-    {
+    void term_2() {
 
     }
 
-    void factor()
-    {
-        if (preanalisis.equals(negacion) || preanalisis.equals(menos)) {
+    void factor() {
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             unary();
             factor_2();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void factor_2()
-    {
+    void factor_2() {
 
     }
 
-    void unary()
-    {
+    void unary() {
         if (preanalisis.equals(negacion)) {
             coincidir(negacion);
             unary();
@@ -384,65 +378,56 @@ public class Parser {
             coincidir(menos);
             unary();
         }
-        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
-        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
-            call();   
-        }
-        else{
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo)
+                || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            call();
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void call()
-    {
-        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
-        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+    void call() {
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo)
+                || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             primary();
-            call_2();   
-        }
-        else{
+            call_2();
+        } else {
             hayErrores = true;
             System.out.println("Error call");
         }
     }
 
-    void call_2()
-    {
+    void call_2() {
         if (preanalisis.equals(parenizq)) {
             coincidir(parenizq);
             arguments_opc();
             coincidir(parender);
             call_2();
-        }
-        else if (preanalisis.equals(punto)) {
+        } else if (preanalisis.equals(punto)) {
             coincidir(punto);
             coincidir(identificador);
             call_2();
         }
     }
 
-    void call_opc()
-    {
-        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena) 
-        || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
-            preanalisis = tokens.get(i++);
-            if (preanalisis.equals(punto)) {
-                preanalisis = tokens.get(i--);
-                call();
-                coincidir(punto);   
-            }
-            else{
-                preanalisis = tokens.get(i--);
-                return;
-            }
+    void call_opc() {
+        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo)
+                || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+            call();
+            coincidir(punto);
+        } else {
+            preanalisis = tokens.get(i--);
+            return;
         }
     }
 
-    void primary()
-    {
+    void primary() {
         if (preanalisis.equals(verdadero)) {
-            coincidir(verdadero);   
+            coincidir(verdadero);
         }
         if (preanalisis.equals(falso)) {
             coincidir(falso);
@@ -471,57 +456,49 @@ public class Parser {
             coincidir(super1);
             coincidir(punto);
             coincidir(identificador);
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error prim");
         }
     }
 
-    void function()
-    {
+    void function() {
         if (preanalisis.equals(identificador)) {
             coincidir(identificador);
             coincidir(parenizq);
             parameters_opc();
             coincidir(parender);
             block();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void functions()
-    {
+    void functions() {
         if (preanalisis.equals(identificador)) {
             function();
             functions();
         }
     }
 
-    void parameters_opc()
-    {
+    void parameters_opc() {
         if (preanalisis.equals(identificador)) {
             parameters();
         }
     }
 
-    void parameters()
-    {
+    void parameters() {
         if (preanalisis.equals(identificador)) {
             coincidir(identificador);
             parameters_2();
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
     }
 
-    void parameters_2()
-    {
+    void parameters_2() {
         if (preanalisis.equals(coma)) {
             coincidir(coma);
             coincidir(identificador);
@@ -529,29 +506,26 @@ public class Parser {
         }
     }
 
-    void arguments_opc()
-    {
+    void arguments_opc() {
 
     }
 
-    void arguments()
-    {
+    void arguments() {
 
     }
 
-    void arguments_2()
-    {
+    void arguments_2() {
 
     }
 
-    void coincidir(Token t){
-        if(hayErrores) return;
+    void coincidir(Token t) {
+        if (hayErrores)
+            return;
 
-        if(preanalisis.tipo == t.tipo){
+        if (preanalisis.tipo == t.tipo) {
             i++;
             preanalisis = tokens.get(i);
-        }
-        else{
+        } else {
             hayErrores = true;
             System.out.println("Error");
 
