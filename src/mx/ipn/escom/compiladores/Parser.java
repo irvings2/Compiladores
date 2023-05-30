@@ -116,8 +116,11 @@ public class Parser {
     }
 
     void var_decl() {
-        if (hayErrores) {
-
+        if (preanalisis.equals(var1)) {
+            coincidir(var1);
+            coincidir(identificador);
+            var_init();
+            coincidir(puntoycoma);
         } else {
             hayErrores = true;
             System.out.println("Error");
@@ -125,7 +128,10 @@ public class Parser {
     }
 
     void var_init() {
-
+        if (preanalisis.equals(asignacion)) {
+            coincidir(asignacion);
+            expression();
+        }
     }
 
     void statement() {
