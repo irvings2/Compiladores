@@ -171,8 +171,7 @@ public class Parser {
             for_stmt_3();
             coincidir(parender);
             statement();
-        }
-        else {
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
@@ -181,17 +180,14 @@ public class Parser {
     void for_stmt_1() {
         if (preanalisis.equals(var1)) {
             var_decl();
-        }
-        else if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
-        || preanalisis.equals(falso)
-        || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
-        || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+        } else if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             expr_stmt();
-        }
-        else if (preanalisis.equals(puntoycoma)) {
+        } else if (preanalisis.equals(puntoycoma)) {
             coincidir(puntoycoma);
-        }
-        else {
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
@@ -199,15 +195,13 @@ public class Parser {
 
     void for_stmt_2() {
         if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
-        || preanalisis.equals(falso)
-        || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
-        || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             expression();
-        }
-        else if (preanalisis.equals(puntoycoma)) {
+        } else if (preanalisis.equals(puntoycoma)) {
             coincidir(puntoycoma);
-        }
-        else {
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
@@ -215,9 +209,9 @@ public class Parser {
 
     void for_stmt_3() {
         if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
-        || preanalisis.equals(falso)
-        || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
-        || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             expression();
         }
     }
@@ -258,8 +252,7 @@ public class Parser {
         if (preanalisis.equals(return1)) {
             coincidir(return1);
             return_exp_opc();
-        }
-        else {
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
@@ -267,9 +260,9 @@ public class Parser {
 
     void return_exp_opc() {
         if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
-        || preanalisis.equals(falso)
-        || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
-        || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             expression();
         }
     }
@@ -281,8 +274,7 @@ public class Parser {
             expression();
             coincidir(parender);
             statement();
-        }
-        else {
+        } else {
             hayErrores = true;
             System.out.println("Error");
         }
