@@ -323,28 +323,23 @@ public class Parser {
     }
 
     void assignment() {
-        i++;
-        preanalisis = tokens.get(i);
-        if (preanalisis.equals(parenizq) || preanalisis.equals(punto)) {
-            i--;
-            preanalisis = tokens.get(i);
-            call_opc();
-            coincidir(identificador);
-            coincidir(asignacion);
-            assignment();
-        } else if (preanalisis.equals(iguala) || preanalisis.equals(diferenteque)) {
-            i--;
-            preanalisis = tokens.get(i);
-            logic_or();
-        } else if (preanalisis.equals(asignacion)) {
-            i--;
-            preanalisis = tokens.get(i);
-            coincidir(identificador);
-            coincidir(asignacion);
-            assignment();
-        } else {
+        if (preanalisis.equals(negacion) || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
+        logic_or();
+        assignment_opc();
+     }
+        else {
             hayErrores = true;
             System.out.println("Error assig");
+        }
+    }
+    void assignment_opc() {
+        if (preanalisis.equals(asignacion)) {
+            coincidir(asignacion);
+            expression();
         }
     }
 
