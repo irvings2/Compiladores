@@ -164,6 +164,7 @@ public class Parser {
                 || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
                 || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             expression();
+            coincidir(puntoycoma);
         } else {
             hayErrores = true;
             System.out.println("Error");
@@ -207,6 +208,7 @@ public class Parser {
                 || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
                 || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
             expression();
+            coincidir(puntoycoma);
         } else if (preanalisis.equals(puntoycoma)) {
             coincidir(puntoycoma);
         } else {
@@ -328,14 +330,14 @@ public class Parser {
                 || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
                 || preanalisis.equals(cadena)
                 || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
-        logic_or();
-        assignment_opc();
-     }
-        else {
+            logic_or();
+            assignment_opc();
+        } else {
             hayErrores = true;
             System.out.println("Error assig");
         }
     }
+
     void assignment_opc() {
         if (preanalisis.equals(asignacion)) {
             coincidir(asignacion);
@@ -541,15 +543,6 @@ public class Parser {
         }
     }
 
-    void call_opc() {
-        if (preanalisis.equals(verdadero) || preanalisis.equals(falso) || preanalisis.equals(nulo)
-                || preanalisis.equals(this1) || preanalisis.equals(numero) || preanalisis.equals(cadena)
-                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)) {
-            call();
-            coincidir(punto);
-        }
-    }
-
     void primary() {
         if (preanalisis.equals(verdadero)) {
             coincidir(verdadero);
@@ -575,7 +568,7 @@ public class Parser {
             coincidir(identificador);
         } else {
             hayErrores = true;
-            System.out.println("Error prim");
+            System.out.println("Error");
         }
     }
 

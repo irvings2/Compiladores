@@ -20,14 +20,14 @@ public class Token {
             return false;
         }
 
-        if(this.tipo == ((Token)o).tipo){
+        if (this.tipo == ((Token) o).tipo) {
             return true;
         }
 
         return false;
     }
 
-    public String toString(){
+    public String toString() {
         return tipo + " " + lexema + " " + literal;
     }
 }
