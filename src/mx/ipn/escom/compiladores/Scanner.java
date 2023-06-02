@@ -30,6 +30,8 @@ public class Scanner {
         palabrasReservadas.put("true", TipoToken.VERDADERO);
         palabrasReservadas.put("var", TipoToken.VAR); // definir variables
         palabrasReservadas.put("while", TipoToken.MIENTRAS);
+        palabrasReservadas.put("or", TipoToken.O);
+        palabrasReservadas.put("and", TipoToken.Y);
     }
 
     Scanner(String source) {
