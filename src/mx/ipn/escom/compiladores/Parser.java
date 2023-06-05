@@ -94,7 +94,7 @@ public class Parser {
             coincidir(llaveder);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba la palabra reservada class");
         }
     }
 
@@ -111,7 +111,7 @@ public class Parser {
             function();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba la palabra reservada fun");
         }
     }
 
@@ -123,7 +123,7 @@ public class Parser {
             coincidir(puntoycoma);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error,se esperaba la palabra reservada var");
         }
     }
 
@@ -167,7 +167,7 @@ public class Parser {
             coincidir(puntoycoma);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -182,7 +182,7 @@ public class Parser {
             statement();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error se esperaba la palabra reservada for");
         }
     }
 
@@ -198,7 +198,7 @@ public class Parser {
             coincidir(puntoycoma);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba la palabra reservada fun o un declaracion de estado o punto y coma");
         }
     }
 
@@ -213,7 +213,7 @@ public class Parser {
             coincidir(puntoycoma);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una declaracion de estado o punto y coma");
         }
     }
 
@@ -236,7 +236,7 @@ public class Parser {
             else_statement();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba la palabra reservada if");
         }
     }
 
@@ -254,7 +254,7 @@ public class Parser {
             coincidir(puntoycoma);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba la palabra reservada print");
         }
     }
 
@@ -265,7 +265,7 @@ public class Parser {
             coincidir(puntoycoma);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba la palabra reservada return");
         }
     }
 
@@ -287,7 +287,7 @@ public class Parser {
             statement();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba la palabra reservada while");
         }
     }
 
@@ -298,7 +298,7 @@ public class Parser {
             coincidir(llaveder);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba uso de las llaves");
         }
     }
 
@@ -320,7 +320,7 @@ public class Parser {
             assignment();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una declaracion de estado, un identificadpr o llaves");
         }
     }
 
