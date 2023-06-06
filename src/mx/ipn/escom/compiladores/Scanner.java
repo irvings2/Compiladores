@@ -106,9 +106,7 @@ public class Scanner {
                         estado = 0;
                     } else if (c == '/') {
                         temp = Character.toString(c);
-                        tokens.add(new Token(TipoToken.DIV, temp, null, linea));
-                        temp = "";
-                        estado = 0;
+                        estado = 15;
                     } else if (Character.isDigit(c)) {
                         estado = 9;
                         temp = temp + c;
@@ -294,6 +292,30 @@ public class Scanner {
                         i--;
                     }
                     break;
+                case 15:
+                    if (c == '*') {
+                        estado = 16;
+                    } else {
+                        tokens.add(new Token(TipoToken.DIV, temp, null, linea));
+                        temp = "";
+                        i--;
+                        estado = 0;
+                    }
+                    break;
+                case 16:
+                    if (c == '*') {
+                        estado = 17;
+                    } else {
+                        estado = 16;
+                    }
+                    break;
+                case 17:
+                    if (c == '/') {
+                        estado = 0;
+                        temp = "";
+                    } else {
+                        System.out.println("Error");
+                    }
                 default:
                     break;
             }
