@@ -182,7 +182,7 @@ public class Parser {
             statement();
         } else {
             hayErrores = true;
-            System.out.println("Error se esperaba la palabra reservada for");
+            System.out.println("Error, se esperaba la palabra reservada for");
         }
     }
 
@@ -320,7 +320,7 @@ public class Parser {
             assignment();
         } else {
             hayErrores = true;
-            System.out.println("Error, se esperaba una declaracion de estado, un identificadpr o llaves");
+            System.out.println("Error, se esperaba una declaracion de estado, un identificador o llaves");
         }
     }
 
@@ -355,7 +355,7 @@ public class Parser {
             logic_or_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -377,7 +377,7 @@ public class Parser {
             logic_and_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -399,7 +399,7 @@ public class Parser {
             equality_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -425,7 +425,7 @@ public class Parser {
             comparison_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -459,7 +459,7 @@ public class Parser {
             term_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -485,7 +485,7 @@ public class Parser {
             factor_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -514,7 +514,7 @@ public class Parser {
             call();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -526,7 +526,7 @@ public class Parser {
             call_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -568,7 +568,7 @@ public class Parser {
             coincidir(identificador);
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
@@ -581,7 +581,7 @@ public class Parser {
             block();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba un identificador");
         }
     }
 
@@ -604,7 +604,7 @@ public class Parser {
             parameters_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba un identificador");
         }
     }
 
@@ -636,7 +636,7 @@ public class Parser {
             arguments_2();
         } else {
             hayErrores = true;
-            System.out.println("Error");
+            System.out.println("Error, se esperaba una expresion de estado");
         }
     }
 
