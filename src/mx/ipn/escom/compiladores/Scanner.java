@@ -315,6 +315,7 @@ public class Scanner {
                         temp = "";
                     } else {
                         System.out.println("Error");
+                        System.exit(65);
                     }
                 default:
                     break;
