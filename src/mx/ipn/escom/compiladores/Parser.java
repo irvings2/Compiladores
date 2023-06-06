@@ -78,7 +78,12 @@ public class Parser {
             var_decl();
             declaration();
         } else if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1)
-                || preanalisis.equals(return1) || preanalisis.equals(while1)) {
+                || preanalisis.equals(return1) || preanalisis.equals(while1) || preanalisis.equals(negacion)
+                || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso) || preanalisis.equals(identificador)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena) || preanalisis.equals(parenizq) || preanalisis.equals(super1)
+                || preanalisis.equals(llaveizq)) {
             statement();
             declaration();
         }
@@ -154,7 +159,7 @@ public class Parser {
             block();
         } else {
             hayErrores = true;
-            System.out.println("Error statement");
+            System.out.println("Error");
         }
     }
 
@@ -198,7 +203,7 @@ public class Parser {
             coincidir(puntoycoma);
         } else {
             hayErrores = true;
-            System.out.println("Error, se esperaba la palabra reservada fun o un declaracion de estado o punto y coma");
+            System.out.println("Error, se esperaba la palabra reservada var o un declaracion de estado o punto y coma");
         }
     }
 
@@ -305,7 +310,13 @@ public class Parser {
     void block_del() {
         if (preanalisis.equals(for1) || preanalisis.equals(if1) || preanalisis.equals(print1)
                 || preanalisis.equals(return1) || preanalisis.equals(while1) || preanalisis.equals(class1)
-                || preanalisis.equals(fun1) || preanalisis.equals(var1)) {
+                || preanalisis.equals(fun1) || preanalisis.equals(var1) || preanalisis.equals(negacion)
+                || preanalisis.equals(menos) || preanalisis.equals(verdadero)
+                || preanalisis.equals(falso)
+                || preanalisis.equals(nulo) || preanalisis.equals(this1) || preanalisis.equals(numero)
+                || preanalisis.equals(cadena)
+                || preanalisis.equals(identificador) || preanalisis.equals(parenizq) || preanalisis.equals(super1)
+                || preanalisis.equals(llaveizq)) {
             declaration();
             block_del();
         }
@@ -334,7 +345,7 @@ public class Parser {
             assignment_opc();
         } else {
             hayErrores = true;
-            System.out.println("Error assig");
+            System.out.println("Error");
         }
     }
 
@@ -649,10 +660,9 @@ public class Parser {
     }
 
     void coincidir(Token t) {
-        if (hayErrores)
-            return;
-
-        else if (preanalisis.tipo == t.tipo) {
+        if (hayErrores) {
+            System.exit(65);
+        } else if (preanalisis.tipo == t.tipo) {
             i++;
             preanalisis = tokens.get(i);
         } else {
