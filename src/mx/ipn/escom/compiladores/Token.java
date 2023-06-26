@@ -32,8 +32,8 @@ public class Token {
     }
 
     // Métodos auxiliares
-    public boolean esOperando(){
-        switch (this.tipo){
+    public boolean esOperando() {
+        switch (this.tipo) {
             case IDENTIFICADOR:
             case NUMERO:
             case CADENA:
@@ -43,8 +43,8 @@ public class Token {
         }
     }
 
-    public boolean esOperador(){
-        switch (this.tipo){
+    public boolean esOperador() {
+        switch (this.tipo) {
             case MAS:
             case MENOS:
             case MULT:
@@ -64,8 +64,8 @@ public class Token {
         }
     }
 
-    public boolean esPalabraReservada(){
-        switch (this.tipo){
+    public boolean esPalabraReservada() {
+        switch (this.tipo) {
             case VAR:
             case IMPRIMIR:
             case FALSO:
@@ -76,14 +76,6 @@ public class Token {
             case ESTE:
             case VERDADERO:
             case CLASE:
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public boolean esEstructuraDeControl(){
-        switch (this.tipo){
             case ADEMAS:
             case MIENTRAS:
             case PARA:
@@ -94,12 +86,24 @@ public class Token {
         }
     }
 
-    public boolean precedenciaMayorIgual(Token t){
+    public boolean esEstructuraDeControl() {
+        switch (this.tipo) {
+            case ADEMAS:
+            case MIENTRAS:
+            case PARA:
+            case SI:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public boolean precedenciaMayorIgual(Token t) {
         return this.obtenerPrecedencia() >= t.obtenerPrecedencia();
     }
 
-    private int obtenerPrecedencia(){
-        switch (this.tipo){
+    private int obtenerPrecedencia() {
+        switch (this.tipo) {
             case MULT:
             case DIV:
                 return 7;
@@ -125,7 +129,7 @@ public class Token {
         return 0;
     }
 
-    public int aridad(){
+    public int aridad() {
         switch (this.tipo) {
             case MULT:
             case DIV:

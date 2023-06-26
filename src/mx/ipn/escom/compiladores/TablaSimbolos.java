@@ -7,7 +7,7 @@ public class TablaSimbolos {
 
     private final Map<String, Object> values = new HashMap<>();
 
-    boolean existeIdentificador(String identificador){
+    boolean existeIdentificador(String identificador) {
         return values.containsKey(identificador);
     }
 
@@ -18,7 +18,7 @@ public class TablaSimbolos {
         throw new RuntimeException("Variable no definida '" + identificador + "'.");
     }
 
-    void asignar(String identificador, Object valor){
+    void asignar(String identificador, Object valor) {
         values.put(identificador, valor);
     }
 }

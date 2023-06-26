@@ -6,9 +6,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Interprete {
 
@@ -67,9 +65,11 @@ public class Interprete {
         GeneradorPostfija gpf = new GeneradorPostfija(tokens);
         List<Token> postfija = gpf.convertir();
 
-        /*for(Token token : postfija){
-            System.out.println(token);
-        }*/
+        /*
+         * for(Token token : postfija){
+         * System.out.println(token);
+         * }
+         */
 
         GeneradorAST gast = new GeneradorAST(postfija);
         Arbol programa = gast.generarAST();

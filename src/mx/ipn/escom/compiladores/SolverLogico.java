@@ -1,10 +1,10 @@
 package src.mx.ipn.escom.compiladores;
 
-public class SolverAritmetico {
+public class SolverLogico {
 
     private final Nodo nodo;
 
-    public SolverAritmetico(Nodo nodo) {
+    public SolverLogico(Nodo nodo) {
         this.nodo = nodo;
     }
 
@@ -19,7 +19,9 @@ public class SolverAritmetico {
                 return n.getValue().literal;
             } else if (n.getValue().tipo == TipoToken.IDENTIFICADOR) {
                 // Ver la tabla de símbolos
-                tabla.existeIdentificador(n.getValue().lexema);
+                if(tabla.existeIdentificador(n.getValue().lexema)){
+                    return tabla.obtener(n.getValue().lexema);
+                }
             }
         }
 
@@ -32,21 +34,20 @@ public class SolverAritmetico {
 
         if (resultadoIzquierdo instanceof Double && resultadoDerecho instanceof Double) {
             switch (n.getValue().tipo) {
-                case MAS:
-                    return ((Double) resultadoIzquierdo + (Double) resultadoDerecho);
-                case MENOS:
-                    return ((Double) resultadoIzquierdo - (Double) resultadoDerecho);
-                case MULT:
-                    return ((Double) resultadoIzquierdo * (Double) resultadoDerecho);
-                case DIV:
-                    return ((Double) resultadoIzquierdo / (Double) resultadoDerecho);
+                case MENORQUE:
+                    return ((Double) resultadoIzquierdo < (Double) resultadoDerecho);
+                case MENOROIGUALQUE:
+                    return ((Double) resultadoIzquierdo <= (Double) resultadoDerecho);
+                case MAYORQUE:
+                    return ((Double) resultadoIzquierdo > (Double) resultadoDerecho);
+                case MAYOROIGUALQUE:
+                    return ((Double) resultadoIzquierdo >= (Double) resultadoDerecho);
             }
-        } else if (resultadoIzquierdo instanceof String && resultadoDerecho instanceof String) {
+        } /*else if (resultadoIzquierdo instanceof String && resultadoDerecho instanceof String) {
             if (n.getValue().tipo == TipoToken.MAS) {
                 // Ejecutar la concatenación
-                return ((String) resultadoIzquierdo + (String) resultadoDerecho);
             }
-        } else {
+        }*/else {
             // Error por diferencia de tipos
             System.exit(0);
         }
