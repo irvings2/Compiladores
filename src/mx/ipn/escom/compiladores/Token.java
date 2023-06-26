@@ -36,6 +36,7 @@ public class Token {
         switch (this.tipo){
             case IDENTIFICADOR:
             case NUMERO:
+            case CADENA:
                 return true;
             default:
                 return false;
@@ -49,10 +50,14 @@ public class Token {
             case MULT:
             case DIV:
             case IGUALA:
+            case DIFERENTEQUE:
             case MAYORQUE:
             case MAYOROIGUALQUE:
             case MENORQUE:
             case MENOROIGUALQUE:
+            case Y:
+            case O:
+            case ASIGNACION:
                 return true;
             default:
                 return false;
@@ -97,16 +102,23 @@ public class Token {
         switch (this.tipo){
             case MULT:
             case DIV:
-                return 3;
+                return 7;
             case MAS:
             case MENOS:
-                return 2;
-            case IGUALA:
-                return 1;
+                return 6;
             case MAYORQUE:
             case MAYOROIGUALQUE:
             case MENORQUE:
             case MENOROIGUALQUE:
+                return 5;
+            case IGUALA:
+            case DIFERENTEQUE:
+                return 4;
+            case Y:
+                return 3;
+            case O:
+                return 2;
+            case ASIGNACION:
                 return 1;
         }
 
@@ -120,10 +132,14 @@ public class Token {
             case MAS:
             case MENOS:
             case IGUALA:
+            case DIFERENTEQUE:
             case MAYORQUE:
             case MAYOROIGUALQUE:
             case MENORQUE:
             case MENOROIGUALQUE:
+            case Y:
+            case O:
+            case ASIGNACION:
                 return 2;
         }
         return 0;

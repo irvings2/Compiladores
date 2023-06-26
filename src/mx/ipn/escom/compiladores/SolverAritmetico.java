@@ -1,5 +1,8 @@
 package src.mx.ipn.escom.compiladores;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SolverAritmetico {
 
     private final Nodo nodo;
@@ -8,10 +11,10 @@ public class SolverAritmetico {
         this.nodo = nodo;
     }
 
-    public Object resolver(){
-        return resolver(nodo);
+    public Object resolver(TablaSimbolos tabla){
+        return resolver(nodo, tabla);
     }
-    private Object resolver(Nodo n){
+    private Object resolver(Nodo n, TablaSimbolos tabla){
         // No tiene hijos, es un operando
         if(n.getHijos() == null){
             if(n.getValue().tipo == TipoToken.NUMERO || n.getValue().tipo == TipoToken.CADENA){
@@ -19,6 +22,7 @@ public class SolverAritmetico {
             }
             else if(n.getValue().tipo == TipoToken.IDENTIFICADOR){
                 // Ver la tabla de símbolos
+                tabla.existeIdentificador(n.getValue().lexema);
             }
         }
 
@@ -26,8 +30,8 @@ public class SolverAritmetico {
         Nodo izq = n.getHijos().get(0);
         Nodo der = n.getHijos().get(1);
 
-        Object resultadoIzquierdo = resolver(izq);
-        Object resultadoDerecho = resolver(der);
+        Object resultadoIzquierdo = resolver(izq, tabla);
+        Object resultadoDerecho = resolver(der, tabla);
 
         if(resultadoIzquierdo instanceof Double && resultadoDerecho instanceof Double){
             switch (n.getValue().tipo){

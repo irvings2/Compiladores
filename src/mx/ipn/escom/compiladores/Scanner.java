@@ -149,7 +149,7 @@ public class Scanner {
                         temp = temp + c;
                     } else {
                         estado = 0;
-                        tokens.add(new Token(TipoToken.CADENA, temp, null, linea));
+                        tokens.add(new Token(TipoToken.CADENA, temp, temp, linea));
                         temp = "";
                     }
                     break;
@@ -240,7 +240,7 @@ public class Scanner {
                         estado = 11;
                         temp = temp + c;
                     } else {
-                        tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
+                        tokens.add(new Token(TipoToken.NUMERO, temp, Double.valueOf(temp), linea));
                         temp = "";
                         estado = 0;
                         i--;
@@ -260,7 +260,7 @@ public class Scanner {
                         estado = 11;
                         temp = temp + c;
                     } else {
-                        tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
+                        tokens.add(new Token(TipoToken.NUMERO, temp, Double.valueOf(temp), linea));
                         temp = "";
                         estado = 0;
                         i--;
@@ -286,7 +286,7 @@ public class Scanner {
                         estado = 14;
                         temp = temp + c;
                     } else {
-                        tokens.add(new Token(TipoToken.NUMERO, temp, null, linea));
+                        tokens.add(new Token(TipoToken.NUMERO, temp, Double.valueOf(temp), linea));
                         temp = "";
                         estado = 0;
                         i--;

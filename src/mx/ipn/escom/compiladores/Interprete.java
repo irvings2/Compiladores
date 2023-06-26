@@ -6,11 +6,14 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Interprete {
 
     static boolean existenErrores = false;
+    static TablaSimbolos tabla = new TablaSimbolos();
 
     public static void main(String[] args) throws IOException {
         if (args.length > 1) {
@@ -70,8 +73,8 @@ public class Interprete {
 
         GeneradorAST gast = new GeneradorAST(postfija);
         Arbol programa = gast.generarAST();
-        //programa.recorrer();
-        programa.imprimir();
+
+        programa.recorrer(tabla);
     }
 
     /*
