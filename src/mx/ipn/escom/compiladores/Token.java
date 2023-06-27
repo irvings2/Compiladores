@@ -124,6 +124,8 @@ public class Token {
                 return 2;
             case ASIGNACION:
                 return 1;
+            default:
+                break;
         }
 
         return 0;
@@ -145,6 +147,8 @@ public class Token {
             case O:
             case ASIGNACION:
                 return 2;
+            default:
+                break;
         }
         return 0;
     }

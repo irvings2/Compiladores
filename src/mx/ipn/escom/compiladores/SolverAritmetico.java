@@ -19,7 +19,7 @@ public class SolverAritmetico {
                 return n.getValue().literal;
             } else if (n.getValue().tipo == TipoToken.IDENTIFICADOR) {
                 // Ver la tabla de símbolos
-                tabla.existeIdentificador(n.getValue().lexema);
+                return tabla.obtener(n.getValue().lexema);
             }
         }
 
@@ -40,6 +40,8 @@ public class SolverAritmetico {
                     return ((Double) resultadoIzquierdo * (Double) resultadoDerecho);
                 case DIV:
                     return ((Double) resultadoIzquierdo / (Double) resultadoDerecho);
+                default:
+                    break;
             }
         } else if (resultadoIzquierdo instanceof String && resultadoDerecho instanceof String) {
             if (n.getValue().tipo == TipoToken.MAS) {

@@ -42,6 +42,8 @@ public class SolverLogico {
                     return ((Double) resultadoIzquierdo > (Double) resultadoDerecho);
                 case MAYOROIGUALQUE:
                     return ((Double) resultadoIzquierdo >= (Double) resultadoDerecho);
+                default:
+                    break;
             }
         } /*else if (resultadoIzquierdo instanceof String && resultadoDerecho instanceof String) {
             if (n.getValue().tipo == TipoToken.MAS) {

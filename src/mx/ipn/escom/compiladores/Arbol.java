@@ -22,12 +22,21 @@ public class Arbol {
 
                 case VAR:
                     // Crear una variable. Usar tabla de simbolos
-                    Nodo izq = n.getHijos().get(0);
-                    Nodo der = n.getHijos().get(1);
-                    if (tabla.existeIdentificador(izq.getValue().lexema)) {
-                        throw new RuntimeException("Variable ya definida");
-                    } else {
-                        tabla.asignar(izq.getValue().lexema, der.getValue().literal);
+                    if (n.getHijos().size()>1) {
+                        Nodo izq = n.getHijos().get(0);
+                        Nodo der = n.getHijos().get(1);
+                        if (tabla.existeIdentificador(izq.getValue().lexema)) {
+                            throw new RuntimeException("Variable ya definida");
+                        } else {
+                            tabla.asignar(izq.getValue().lexema, der.getValue().literal);
+                        }
+                    }else{
+                        Nodo izq = n.getHijos().get(0);
+                        if (tabla.existeIdentificador(izq.getValue().lexema)) {
+                            throw new RuntimeException("Variable ya definida");
+                        } else {
+                            tabla.asignar(izq.getValue().lexema, null);
+                        }
                     }
                     break;
                 case IMPRIMIR:
@@ -43,10 +52,43 @@ public class Arbol {
                     SolverLogico solver1 = new SolverLogico(izq2);
                     Object res1 = solver1.resolver(tabla);
                     if ((Boolean)res1) {
-                        Nodo der1 = n.getHijos().get(1);
-                        switch (der1.getValue().tipo) {
+                        if (n.getHijos().size()>2) {
+                            for (int i = 0; i < n.getHijos().size(); i++) {
+                                Nodo der1 = n.getHijos().get(i);
+                                switch (der1.getValue().tipo) {
+                                    case IMPRIMIR:
+                                        Nodo izq3 = der1.getHijos().get(0);
+                                        if (tabla.existeIdentificador(izq3.getValue().lexema)) {
+                                            System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                        } else {
+                                            System.out.println(izq3.getValue().literal);
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }else{
+                            Nodo der1 = n.getHijos().get(1);
+                            switch (der1.getValue().tipo) {
+                                case IMPRIMIR:
+                                    Nodo izq3 = der1.getHijos().get(0);
+                                    if (tabla.existeIdentificador(izq3.getValue().lexema)) {
+                                        System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                    } else {
+                                        System.out.println(izq3.getValue().literal);
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }else{
+                        Nodo else1 = n.getHijos().get(2);
+                        Nodo izqelse = else1.getHijos().get(0);
+                        switch (izqelse.getValue().tipo) {
                             case IMPRIMIR:
-                                Nodo izq3 = der1.getHijos().get(0);
+                                Nodo izq3 = izqelse.getHijos().get(0);
                                 if (tabla.existeIdentificador(izq3.getValue().lexema)) {
                                     System.out.println(tabla.obtener(izq3.getValue().lexema));
                                 } else {
@@ -58,7 +100,8 @@ public class Arbol {
                         }
                     }
                     break;
-
+                default:
+                    break;
             }
         }
     }
