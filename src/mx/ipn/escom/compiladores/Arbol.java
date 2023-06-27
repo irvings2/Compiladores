@@ -12,13 +12,13 @@ public class Arbol {
             Token t = n.getValue();
             switch (t.tipo) {
                 // Operadores aritméticos
-                case MAS:
+                /*case MAS:
                 case MENOS:
                 case MULT:
                 case DIV:
                     SolverAritmetico solver = new SolverAritmetico(n);
                     Object res = solver.resolver(tabla);
-                    break;
+                    break;*/
 
                 case VAR:
                     // Crear una variable. Usar tabla de simbolos
@@ -41,10 +41,20 @@ public class Arbol {
                     break;
                 case IMPRIMIR:
                     Nodo izq1 = n.getHijos().get(0);
-                    if (tabla.existeIdentificador(izq1.getValue().lexema)) {
-                        System.out.println(tabla.obtener(izq1.getValue().lexema));
-                    } else {
-                        System.out.println(izq1.getValue().literal);
+                    switch (izq1.getValue().tipo) {
+                        case MAS:
+                            SolverAritmetico solver = new SolverAritmetico(izq1);
+                            Object res = solver.resolver(tabla);
+                            System.out.println(res);
+                            break;
+                    
+                        default:
+                            if (tabla.existeIdentificador(izq1.getValue().lexema)) {
+                                System.out.println(tabla.obtener(izq1.getValue().lexema));
+                            } else {
+                                System.out.println(izq1.getValue().literal);
+                            }
+                            break;
                     }
                     break;
                 case SI:
