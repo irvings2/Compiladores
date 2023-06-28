@@ -53,7 +53,7 @@ public class Arbol {
                         case MAS:
                             SolverAritmetico solver = new SolverAritmetico(izq1);
                             Object res = solver.resolver(tabla);
-                            System.out.println(res);
+                            System.out.print(res);
                             break;
 
                         default:
@@ -77,9 +77,9 @@ public class Arbol {
                                     case IMPRIMIR:
                                         Nodo izq3 = der1.getHijos().get(0);
                                         if (tabla.existeIdentificador(izq3.getValue().lexema)) {
-                                            System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                            System.out.print(tabla.obtener(izq3.getValue().lexema));
                                         } else {
-                                            System.out.println(izq3.getValue().literal);
+                                            System.out.print(izq3.getValue().literal);
                                         }
                                         break;
                                     default:
@@ -92,9 +92,9 @@ public class Arbol {
                                 case IMPRIMIR:
                                     Nodo izq3 = der1.getHijos().get(0);
                                     if (tabla.existeIdentificador(izq3.getValue().lexema)) {
-                                        System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                        System.out.print(tabla.obtener(izq3.getValue().lexema));
                                     } else {
-                                        System.out.println(izq3.getValue().literal);
+                                        System.out.print(izq3.getValue().literal);
                                     }
                                     break;
                                 default:
@@ -111,9 +111,9 @@ public class Arbol {
                                         case IMPRIMIR:
                                             Nodo izq3 = der1.getHijos().get(0);
                                             if (tabla.existeIdentificador(izq3.getValue().lexema)) {
-                                                System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                                System.out.print(tabla.obtener(izq3.getValue().lexema));
                                             } else {
-                                                System.out.println(izq3.getValue().literal);
+                                                System.out.print(izq3.getValue().literal);
                                             }
                                             break;
                                         default:
@@ -126,9 +126,9 @@ public class Arbol {
                                     case IMPRIMIR:
                                         Nodo izq3 = der1.getHijos().get(0);
                                         if (tabla.existeIdentificador(izq3.getValue().lexema)) {
-                                            System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                            System.out.print(tabla.obtener(izq3.getValue().lexema));
                                         } else {
-                                            System.out.println(izq3.getValue().literal);
+                                            System.out.print(izq3.getValue().literal);
                                         }
                                         break;
                                     default:
