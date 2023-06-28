@@ -11,26 +11,34 @@ public class Arbol {
         for (Nodo n : raiz.getHijos()) {
             Token t = n.getValue();
             switch (t.tipo) {
-                // Operadores aritméticos
-                /*case MAS:
-                case MENOS:
-                case MULT:
-                case DIV:
-                    SolverAritmetico solver = new SolverAritmetico(n);
-                    Object res = solver.resolver(tabla);
-                    break;*/
-
                 case VAR:
                     // Crear una variable. Usar tabla de simbolos
-                    if (n.getHijos().size()>1) {
+                    if (n.getHijos().size() > 1) {
                         Nodo izq = n.getHijos().get(0);
                         Nodo der = n.getHijos().get(1);
-                        if (tabla.existeIdentificador(izq.getValue().lexema)) {
-                            throw new RuntimeException("Variable ya definida");
-                        } else {
-                            tabla.asignar(izq.getValue().lexema, der.getValue().literal);
+                        switch (der.getValue().tipo) {
+                            case MAS:
+                            case MENOS:
+                            case MULT:
+                            case DIV:
+                                SolverAritmetico solver = new SolverAritmetico(der);
+                                Object res = solver.resolver(tabla);
+                                if (tabla.existeIdentificador(izq.getValue().lexema)) {
+                                    throw new RuntimeException("Variable ya definida");
+                                } else {
+                                    tabla.asignar(izq.getValue().lexema, res);
+                                }
+                                break;
+
+                            default:
+                                if (tabla.existeIdentificador(izq.getValue().lexema)) {
+                                    throw new RuntimeException("Variable ya definida");
+                                } else {
+                                    tabla.asignar(izq.getValue().lexema, der.getValue().literal);
+                                }
+                                break;
                         }
-                    }else{
+                    } else {
                         Nodo izq = n.getHijos().get(0);
                         if (tabla.existeIdentificador(izq.getValue().lexema)) {
                             throw new RuntimeException("Variable ya definida");
@@ -47,12 +55,12 @@ public class Arbol {
                             Object res = solver.resolver(tabla);
                             System.out.println(res);
                             break;
-                    
+
                         default:
                             if (tabla.existeIdentificador(izq1.getValue().lexema)) {
-                                System.out.println(tabla.obtener(izq1.getValue().lexema));
+                                System.out.print(tabla.obtener(izq1.getValue().lexema));
                             } else {
-                                System.out.println(izq1.getValue().literal);
+                                System.out.print(izq1.getValue().literal);
                             }
                             break;
                     }
@@ -61,8 +69,8 @@ public class Arbol {
                     Nodo izq2 = n.getHijos().get(0);
                     SolverLogico solver1 = new SolverLogico(izq2);
                     Object res1 = solver1.resolver(tabla);
-                    if ((Boolean)res1) {
-                        if (n.getHijos().size()>2) {
+                    if ((Boolean) res1) {
+                        if (n.getHijos().size() > 2) {
                             for (int i = 0; i < n.getHijos().size(); i++) {
                                 Nodo der1 = n.getHijos().get(i);
                                 switch (der1.getValue().tipo) {
@@ -78,7 +86,7 @@ public class Arbol {
                                         break;
                                 }
                             }
-                        }else{
+                        } else {
                             Nodo der1 = n.getHijos().get(1);
                             switch (der1.getValue().tipo) {
                                 case IMPRIMIR:
@@ -93,20 +101,40 @@ public class Arbol {
                                     break;
                             }
                         }
-                    }else{
-                        Nodo else1 = n.getHijos().get(2);
-                        Nodo izqelse = else1.getHijos().get(0);
-                        switch (izqelse.getValue().tipo) {
-                            case IMPRIMIR:
-                                Nodo izq3 = izqelse.getHijos().get(0);
-                                if (tabla.existeIdentificador(izq3.getValue().lexema)) {
-                                    System.out.println(tabla.obtener(izq3.getValue().lexema));
-                                } else {
-                                    System.out.println(izq3.getValue().literal);
+                    } else {
+                        if (n.getHijos().size() > 2) {
+                            Nodo aux1 = n.getHijos().get(2);
+                            if (aux1.getHijos().size() > 2) {
+                                for (int i = 0; i < aux1.getHijos().size(); i++) {
+                                    Nodo der1 = aux1.getHijos().get(i);
+                                    switch (der1.getValue().tipo) {
+                                        case IMPRIMIR:
+                                            Nodo izq3 = der1.getHijos().get(0);
+                                            if (tabla.existeIdentificador(izq3.getValue().lexema)) {
+                                                System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                            } else {
+                                                System.out.println(izq3.getValue().literal);
+                                            }
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
-                                break;
-                            default:
-                                break;
+                            } else {
+                                Nodo der1 = aux1.getHijos().get(0);
+                                switch (der1.getValue().tipo) {
+                                    case IMPRIMIR:
+                                        Nodo izq3 = der1.getHijos().get(0);
+                                        if (tabla.existeIdentificador(izq3.getValue().lexema)) {
+                                            System.out.println(tabla.obtener(izq3.getValue().lexema));
+                                        } else {
+                                            System.out.println(izq3.getValue().literal);
+                                        }
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
                         }
                     }
                     break;
