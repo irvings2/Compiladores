@@ -57,7 +57,7 @@ public class Parser {
         program();
 
         if (!hayErrores && !preanalisis.equals(finCadena)) {
-            System.out.println("Error fin cadena");
+            System.out.println("Error");
         } /*
            * else if (!hayErrores && preanalisis.equals(finCadena)) {
            * System.out.println("Cadena válida");
