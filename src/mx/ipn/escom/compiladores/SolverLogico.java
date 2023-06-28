@@ -45,12 +45,17 @@ public class SolverLogico {
                 default:
                     break;
             }
+        }else if (resultadoIzquierdo instanceof Boolean && resultadoDerecho instanceof Boolean) {
+            if (n.getValue().tipo == TipoToken.Y) {
+                return ((Boolean) resultadoIzquierdo && (Boolean) resultadoDerecho);
+            }
         } /*else if (resultadoIzquierdo instanceof String && resultadoDerecho instanceof String) {
             if (n.getValue().tipo == TipoToken.MAS) {
                 // Ejecutar la concatenación
             }
         }*/else {
             // Error por diferencia de tipos
+            System.out.println("Error");
             System.exit(0);
         }
 

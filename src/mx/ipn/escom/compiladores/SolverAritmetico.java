@@ -50,6 +50,7 @@ public class SolverAritmetico {
             }
         } else {
             // Error por diferencia de tipos
+            System.out.println("Error");
             System.exit(0);
         }
 
